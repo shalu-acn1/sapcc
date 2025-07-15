@@ -9,7 +9,7 @@
       },
       "csr": {
         "webroot": "dist/spartacusstore/browser/"
-      },
+      }
     },
     {
       "name": "b2bspastore",
@@ -20,7 +20,7 @@
       },
       "csr": {
         "webroot": "dist/b2bspastore/browser/"
-      },
+      }
     }
   ],
   "nodeVersion": "22"
