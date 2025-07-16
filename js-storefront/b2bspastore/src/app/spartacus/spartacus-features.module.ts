@@ -115,7 +115,6 @@ import { ProductConfiguratorFeatureModule } from './features/product-configurato
     "shouldHideAddToCartForUnpurchasableProducts": true,
     "useExtractedBillingAddressComponent": true,
     "showBillingAddressInDigitalPayments": true,
-    "showDownloadProposalButton": true,
     "showPromotionsInPDP": true,
     "searchBoxV2": true,
     "recentSearches": true,
