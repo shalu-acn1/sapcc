@@ -82,7 +82,7 @@
         },
         {
             "key": "backoffice.solr.search.index.autoinit",
-            "value": "true"
+            "value": "false"
         },
         {
             "key": "orbeonweb.orbeon.persistence.uri",
@@ -179,7 +179,7 @@
             "properties": [
                 {
                     "key": "backoffice.solr.search.index.autoinit",
-                    "value": "true"
+                    "value": "false"
                 },
                 {
                     "key": "storefrontContextRoot",
