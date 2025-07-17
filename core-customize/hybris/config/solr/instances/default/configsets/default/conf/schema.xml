@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!--  
- For more information, on how to customize this file, please see https://lucene.apache.org/solr/guide/7_5/documents-fields-and-schema-design.html
+<!--
+ For more information, on how to customize this file, please see https://solr.apache.org/guide/solr/latest/getting-started/documents-fields-schema-design.html
 -->
 
-<schema name="hybris" version="7.5">
-	<types>	
+<schema name="default" version="1.7">
+	<!-- attribute "name" is the name of this schema and is only used for display purposes.
+	   version="x.y" is Solr's version number for the schema syntax and
+	   semantics.  It should not normally be changed by applications.
+
+	   1.0: multiValued attribute did not exist, all fields are multiValued
+			by nature
+	   1.1: multiValued attribute introduced, false by default
+	   1.2: omitTermFreqAndPositions attribute introduced, true by default
+			except for text fields.
+	   1.3: removed optional field compress feature
+	   1.4: autoGeneratePhraseQueries attribute introduced to drive QueryParser
+			behavior when a single string produces multiple tokens.  Defaults
+			to off for version >= 1.4
+	   1.5: omitNorms defaults to true for primitive field types
+			(int, float, boolean, string...)
+	   1.6: useDocValuesAsStored defaults to true.
+	   1.7: docValues defaults to true, uninvertible defaults to false.
+	-->
+	<types>
 		<!-- Basic Types -->
 
 		<fieldType name="boolean" class="solr.BoolField" docValues="true" sortMissingLast="true" />
@@ -15,7 +33,7 @@
 		<fieldType name="double" class="solr.DoublePointField" docValues="true" sortMissingLast="true" />
 		<fieldType name="date" class="solr.DatePointField" docValues="true" sortMissingLast="true" />
 		<fieldType name="string" class="solr.StrField" docValues="true" sortMissingLast="true" />
-		
+
 		<!-- Text -->
 
 		<fieldType name="text" class="solr.TextField" positionIncrementGap="100">
@@ -145,7 +163,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-	
+
 		<!-- Text German (de) -->
 
 		<fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
@@ -201,7 +219,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Spanish (es) -->
 
 		<fieldType name="text_es" class="solr.TextField" positionIncrementGap="100">
@@ -249,7 +267,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Latin-American Spanish (es_CO) -->
 
 		<fieldType name="text_es_co" class="solr.TextField" positionIncrementGap="100">
@@ -349,7 +367,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-	
+
 		<!-- Text Hindi (hi) -->
 
 		<fieldType name="text_hi" class="solr.TextField" positionIncrementGap="100">
@@ -397,7 +415,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Hungarian (hu) -->
 
 		<fieldType name="text_hu" class="solr.TextField" positionIncrementGap="100">
@@ -585,7 +603,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Korean (ko) -->
 
 		<fieldType name="text_ko" class="solr.TextField" positionIncrementGap="100">
@@ -627,7 +645,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Polish (pl) -->
 
 		<fieldType name="text_pl" class="solr.TextField" positionIncrementGap="100">
@@ -820,7 +838,7 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Text Traditional Chinese (zh_TW) -->
 
 		<fieldType name="text_zh_tw" class="solr.TextField" positionIncrementGap="100">
@@ -868,16 +886,19 @@
 				<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
 			</analyzer>
 		</fieldType>
-		
+
 		<!-- Sortable Text -->
 
-		<fieldType name="sortabletext" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100">
+		<fieldType name="sortabletext" class="solr.TextField" sortMissingLast="true" positionIncrementGap="100" uninvertible="true">
 			<analyzer>
 				<tokenizer class="solr.KeywordTokenizerFactory"/>
 				<filter class="solr.LowerCaseFilterFactory" />
 				<filter class="solr.TrimFilterFactory" />
 			</analyzer>
 		</fieldType>
+
+		<!-- Advanced - industry specific types -->
+		<fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"/>
 	</types>
 
 	<similarity class="solr.SchemaSimilarityFactory" />
@@ -1037,6 +1058,8 @@
 		<dynamicField name="*_sortabletext_mv" type="sortabletext" indexed="true" stored="true"
 			multiValued="true" />
 
+		<!-- Advanced - industry specific fields -->
+		<dynamicField name="*_location_rpt" type="location_rpt" indexed="true" stored="true" multiValued="true"/>
 	</fields>
 
 	<uniqueKey>id</uniqueKey>
