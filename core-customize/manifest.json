@@ -62,11 +62,11 @@
         },
         {
             "key": "endpoint.hac.platform.init.disabled",
-            "value": "true"
+            "value": "false"
         },
         {
             "key": "endpoint.hac.platform.update.disabled",
-            "value": "true"
+            "value": "false"
         },
         {
             "key": "googleApiKey",
