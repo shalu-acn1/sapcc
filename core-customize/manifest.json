@@ -5,17 +5,6 @@
         "cloudmediaconversion",
         "mediaconversionbackoffice"
     ],
-    "storefrontAddons": [
-        {
-            "addons": [
-                "ordermanagementaddon"
-            ],
-            "storefronts": [
-                "yacceleratorstorefront"
-            ],
-            "template": "yacceleratorstorefront"
-        }
-    ],
     "useConfig": {
         "properties": [
             {
@@ -445,7 +434,7 @@
                 },
 				{
 					"key": "commercewebservices.api.restrictions.disabled.endpoints",
-					"value":" "
+					"value": " "
 				}
             ],
             "webapps": [
