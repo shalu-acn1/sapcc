@@ -82,19 +82,7 @@
         },
         {
             "key": "backoffice.solr.search.index.autoinit",
-            "value": "false"
-        },
-        {
-            "key": "orbeonweb.orbeon.persistence.uri",
-            "value": "http://localhost:8081/xyformsweb/fr/service/hybris"
-        },
-        {
-            "key": "xyformsservices.orbeon.url.address",
-            "value": "http://localhost:8081/web-orbeon"
-        },
-        {
-            "key": "xyformsservices.webroot.override",
-            "value": "false"
+            "value": "true"
         },
         {
             "key": "mail.smtp.server",
@@ -179,7 +167,7 @@
             "properties": [
                 {
                     "key": "backoffice.solr.search.index.autoinit",
-                    "value": "false"
+                    "value": "true"
                 },
                 {
                     "key": "storefrontContextRoot",
@@ -260,15 +248,12 @@
                     "contextPath": "/permissionswebservices"
                 },
                 {
-                    "name": "odata2webservices"
+                    "name": "odata2webservices",
+					"contextPath": "/odata2webservices"
                 },
                 {
                     "name": "orbeonweb",
                     "contextPath": "/web-orbeon"
-                },
-                {
-                    "name": "xyformsweb",
-                    "contextPath": "/xyformsweb"
                 },
                 {
                     "name": "adminapi",
@@ -344,14 +329,6 @@
                 {
                     "name": "hac",
                     "contextPath": "/hac"
-                },
-                {
-                    "name": "orbeonweb",
-                    "contextPath": "/web-orbeon"
-                },
-                {
-                    "name": "xyformsweb",
-                    "contextPath": "/xyformsweb"
                 }
             ]
         },
@@ -465,7 +442,11 @@
                 {
                     "key": "mockup.payment.label.billTo.phoneNumber",
                     "value": "billTo_phoneNumber"
-                }
+                },
+				{
+					"key": "commercewebservices.api.restrictions.disabled.endpoints",
+					"value":" "
+				}
             ],
             "webapps": [
                 {
@@ -515,10 +496,6 @@
                 {
                     "name": "b2bordermanagementwebservices",
                     "contextPath": "/b2bordermanagementwebservices"
-                },
-                {
-                    "name": "datahubadapter",
-                    "contextPath": "/datahubadapter"
                 }
             ]
         },
