@@ -60,7 +60,7 @@
     <extension name='ybackoffice' />
 <!--    <extension name='yacceleratorbackoffice' />-->
 <!--    <extension name='yacceleratorcockpits' />-->
-<!--    <extension name='yacceleratorcore' />-->
+	<extension name='yacceleratorcore' />
 <!--    <extension name='yacceleratorfacades' />-->
 <!--    <extension name='yacceleratorinitialdata' />-->
 <!--    <extension name='yacceleratorstorefront' />-->
