@@ -338,7 +338,7 @@
                 },
                 {
                     "key": "corsfilter.default.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.default.allowedMethod",
@@ -346,7 +346,7 @@
                 },
                 {
                     "key": "corsfilter.acceleratorservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.acceleratorservices.allowedHeaders",
@@ -362,7 +362,7 @@
                 },
                 {
                     "key": "corsfilter.modeltacceleratorservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.modeltacceleratorservices.allowedHeaders",
@@ -378,7 +378,7 @@
                 },
                 {
                     "key": "corsfilter.assistedservicewebservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.assistedservicewebservices.allowedHeaders",
@@ -394,7 +394,7 @@
                 },
                 {
                     "key": "corsfilter.commercewebservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.commercewebservices.allowedHeaders",
@@ -410,7 +410,7 @@
                 },
                 {
                     "key": "corsfilter.permissionswebservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "corsfilter.permissionswebservices.allowedHeaders",
@@ -422,7 +422,7 @@
                 },
                 {
                     "key": "corsfilter.personalizationwebservices.allowedOrigins",
-                    "value": "*"
+                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
                 },
                 {
                     "key": "mockup.payment.label.billTo.region",
