@@ -435,6 +435,26 @@
 				{
 					"key": "commercewebservices.api.restrictions.disabled.endpoints",
 					"value": " "
+				},
+				{
+					"key": "corsfilter.commercewebservices.allowedOriginPatterns",
+					"value": "*"
+				},
+				{
+					"key": "corsfilter.commercewebservices.allowedMethods",
+					"value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
+				},
+				{
+					"key": "corsfilter.commercewebservices.allowedHeaders",
+					"value": "origin content-type accept authorization cache-control if-none-match x-anonymous-consents x-profile-tag-debug x-consent-reference occ-personalization-id occ-personalization-time"
+				},
+				{
+					"key": "corsfilter.commercewebservices.exposedHeaders",
+					"value": "x-anonymous-consents occ-personalization-id occ-personalization-time"
+				},
+				{
+					"key": "corsfilter.commercewebservices.allowCredentials",
+					"value": "true"
 				}
             ],
             "webapps": [
