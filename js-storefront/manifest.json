@@ -5,10 +5,10 @@
       "path": "spartacusstore",
       "ssr": {
         "enabled": true,
-        "path": "dist/spartacusstore/server/server.mjs"
+        "path": "dist/ssr/server/server.mjs"
       },
       "csr": {
-        "webroot": "dist/spartacusstore/browser/"
+        "webroot": "dist/ssr/browser/"
       }
     }
   ],
