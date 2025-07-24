@@ -45,7 +45,7 @@
 <!--    <extension name='b2bpunchoutbackoffice' />-->
 <!--    <extension name='b2bpunchoutocc' />-->
 <!--    <extension name='b2bpunchoutocctests' />-->
-    <!--<extension name='apparelstore' />-->
+    <extension name='apparelstore' />
     <extension name='electronicsstore' />
     <extension name='captchaaddon' />
     <extension name='multicountrysampledataaddon' />
