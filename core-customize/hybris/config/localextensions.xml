@@ -308,5 +308,7 @@
 <!--    <extension name='xyformsweb' />-->
     <extension name='opfservices'/>
     <extension name='opffacades'/>
+	<extension name='cxaibackoffice'/>
+	<extension name='cxaiocc'/>
   </extensions>
 </hybrisconfig>
