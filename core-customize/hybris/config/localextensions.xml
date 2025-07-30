@@ -60,7 +60,7 @@
     <extension name='ybackoffice' />
 <!--    <extension name='yacceleratorbackoffice' />-->
 <!--    <extension name='yacceleratorcockpits' />-->
-<!--    <extension name='yacceleratorcore' />-->
+    <extension name='yacceleratorcore' />
 <!--    <extension name='yacceleratorfacades' />-->
 <!--    <extension name='yacceleratorinitialdata' />-->
 <!--    <extension name='yacceleratorstorefront' />-->
@@ -125,7 +125,7 @@
 <!--    <extension name='consignmenttrackingmock' />-->
 <!--    <extension name='consignmenttrackingocc' />-->
 <!--    <extension name='consignmenttrackingservices' />-->
-<!--    <extension name='acceleratorbackoffice' />-->
+   <extension name='acceleratorbackoffice' /
    <extension name='acceleratorcms' />
    <extension name='acceleratorfacades' />
    <extension name='acceleratorocc' />
