@@ -310,5 +310,6 @@
     <extension name='opffacades'/>
 	<extension name='cxaibackoffice'/>
 	<extension name='cxaiocc'/>
+	<extension name='acceleratorwebservicesaddon'/>
   </extensions>
 </hybrisconfig>
