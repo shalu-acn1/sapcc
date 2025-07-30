@@ -60,7 +60,7 @@
     <extension name='ybackoffice' />
 <!--    <extension name='yacceleratorbackoffice' />-->
 <!--    <extension name='yacceleratorcockpits' />-->
-	<extension name='yacceleratorcore' />
+<!--    <extension name='yacceleratorcore' />-->
 <!--    <extension name='yacceleratorfacades' />-->
 <!--    <extension name='yacceleratorinitialdata' />-->
 <!--    <extension name='yacceleratorstorefront' />-->
@@ -126,11 +126,11 @@
 <!--    <extension name='consignmenttrackingocc' />-->
 <!--    <extension name='consignmenttrackingservices' />-->
 <!--    <extension name='acceleratorbackoffice' />-->
-<!--    <extension name='acceleratorcms' />-->
-<!--    <extension name='acceleratorfacades' />-->
-<!--    <extension name='acceleratorocc' />-->
-<!--    <extension name='acceleratorservices' />-->
-<!--    <extension name='acceleratorstorefrontcommons' />-->
+   <extension name='acceleratorcms' />
+   <extension name='acceleratorfacades' />
+   <extension name='acceleratorocc' />
+   <extension name='acceleratorservices' />
+   <extension name='acceleratorstorefrontcommons' />
     <extension name='addonsupport' />
     <extension name='couponbackoffice' />
     <extension name='couponfacades' />
