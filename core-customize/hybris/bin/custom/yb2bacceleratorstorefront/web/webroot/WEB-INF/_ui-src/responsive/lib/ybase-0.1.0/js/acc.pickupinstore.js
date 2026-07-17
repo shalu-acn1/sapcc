@@ -160,7 +160,7 @@ ACC.pickupinstore = {
 			dataType: "text",
 			success: function (response)
 			{
-				ACC.pickupinstore.refreshPickupInStoreColumn(response);
+				ACC.pickupinstore.refreshPickupInStoreColumn(ACC.sanitizer.sanitize(response));
 			}
 		});
 	},
@@ -478,6 +478,7 @@ ACC.pickupinstore = {
 	drawMap: function(){
 
 		var storeInformation = ACC.pickupinstore.storeId;
+		var mapId = ACC.config.googleMapId;
 
 		if($("#colorbox .js-map-canvas").length > 0)
 		{			
@@ -492,16 +493,16 @@ ACC.pickupinstore = {
 				panControl: true,
 				streetViewControl: false,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
-				center: centerPoint
+				center: centerPoint,
+				mapId: mapId
 			}
 			
 			var map = new google.maps.Map(document.getElementById("pickup-map"), mapOptions);
 			
-			var marker = new google.maps.Marker({
+			var marker = new google.maps.marker.AdvancedMarkerElement({
 				position: new google.maps.LatLng(storeInformation["storeLatitude"], storeInformation["storeLongitude"]),
 				map: map,
-				title: storeInformation["name"],
-				icon: "https://maps.google.com/mapfiles/marker" + 'A' + ".png"
+				title: storeInformation["name"]
 			});
 			var infowindow = new google.maps.InfoWindow({
 				content: ACC.common.encodeHtml(storeInformation["name"]),

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved.
+ * Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.platform.yb2bacceleratorstorefront.controllers.pages;
 
@@ -15,20 +15,22 @@ import de.hybris.platform.cms2.model.pages.ContentPageModel;
 import de.hybris.platform.commercefacades.customer.CustomerFacade;
 import de.hybris.platform.commerceservices.customer.TokenInvalidatedException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+import de.hybris.platform.servicelayer.user.exceptions.PasswordPolicyViolationException;
 import de.hybris.platform.util.Sanitizer;
 import de.hybris.platform.yb2bacceleratorstorefront.controllers.ControllerConstants;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -178,6 +180,19 @@ public class PasswordResetPageController extends AbstractPageController
 			catch (final TokenInvalidatedException e)
 			{
 				GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.ERROR_MESSAGES_HOLDER, "updatePwd.token.invalidated");
+			}
+			catch (final PasswordPolicyViolationException e)
+			{
+				if (CollectionUtils.isNotEmpty(e.getPolicyViolations()))
+				{
+					GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.ERROR_MESSAGES_HOLDER,
+							e.getPolicyViolations().get(0).getLocalizedMessage());
+				}
+				else
+				{
+					GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.ERROR_MESSAGES_HOLDER,
+							"updatePwd.password.violate.policy");
+				}
 			}
 			catch (final RuntimeException e)
 			{

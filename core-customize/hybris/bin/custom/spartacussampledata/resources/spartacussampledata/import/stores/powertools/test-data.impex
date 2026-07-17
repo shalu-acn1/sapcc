@@ -22,39 +22,22 @@ INSERT_UPDATE Address;owner(B2BUnit.uid)[unique=true];streetname[unique=true];po
 UPDATE StockLevel;productCode[unique=true];warehouse(code);inStockStatus(code)
 ;1979039;pw_warehouse_w;forceOutOfStock
 
+############ Order History ##########
+INSERT_UPDATE Order;code[unique=true];user(uid);date[dateformat=dd.MM.yyyy HH:mm];currency(isocode)[default='USD'];net[default=false];deliveryMode(code)[default='standard-gross'];Discounts(code);calculated[default=false];store(uid);site(uid);deliveryCost;totalPrice;status(code)
+;100004;powertools-test-user-with-orders@sap.cx.com;10.01.2019 10:40;;;;;;powertools;;5.26;35.50;COMPLETED
+
+INSERT_UPDATE OrderEntry;order(code)[unique=true];product(code,catalogVersion(catalog(id),version))[unique=true];quantity[default=1];calculated[default=true];unit(code)[default='pieces'];entryNumber;basePrice;totalPrice
+;100004;3881074:powertoolsProductCatalog:Online;;;;0;40.76;40.76
+ 
+INSERT_UPDATE OrderHistoryEntry;order(code)[unique=true];timestamp[dateformat=dd.MM.yyyy HH:mm]
+;100004;10.01.2019 10:40
+
 ############ Inventory display - Measuring & Layout Tools category now have a stock threshold ################
 $productCatalog=powertoolsProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
 
 UPDATE Category;$catalogVersion;code[unique=true];stockLevelThreshold
 ;;1358;215
-
-############ Future Stock ############ 
-INSERT_UPDATE FutureStock;productCode[unique=true];quantity;date[unique=true,dateformat=yyyy-MM-dd]
-“#% beforeEach:
-import java.time.LocalDate;
-import java.time.Month;
-line.put(Integer.valueOf(1), LocalDate.of(LocalDate.now().getYear() + 8, Month.MARCH, 10).toString());
-”
-;3318057;50;
-
-INSERT_UPDATE FutureStock;productCode[unique=true];quantity;date[unique=true,dateformat=yyyy-MM-dd]
-“#% beforeEach:
-import java.time.LocalDate;
-import java.time.Month;
-line.put(Integer.valueOf(1), LocalDate.of(LocalDate.now().getYear() + 8, Month.JUNE, 10).toString());
-”
-;3318057;85;
-
-INSERT_UPDATE FutureStock;productCode[unique=true];quantity;date[unique=true,dateformat=yyyy-MM-dd]
-“#% beforeEach:
-import java.time.LocalDate;
-import java.time.Month;
-line.put(Integer.valueOf(1), LocalDate.of(LocalDate.now().getYear() + 8, Month.JULY, 10).toString());
-”
-;3318057;95;
-
-
 
 ############ Customer Isolation ###############
 

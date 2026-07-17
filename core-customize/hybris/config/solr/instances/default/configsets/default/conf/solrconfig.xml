@@ -4,10 +4,7 @@
  For more details about configurations options that may appear in this file, see https://lucene.apache.org/solr/guide/8_8/configuring-solrconfig-xml.html.
 -->
 <config>
-	<luceneMatchVersion>9.11</luceneMatchVersion>
-
-	<lib dir="${solr.install.dir:../../../..}/modules/analysis-extras/lib" regex=".*\.jar" />
-	<lib dir="${solr.install.dir:../../../..}/modules/hybris/lib" regex=".*\.jar" />
+	<luceneMatchVersion>9.12</luceneMatchVersion>
 
 	<!-- RestManager storage should be index specific -->
 	<restManager>
@@ -28,7 +25,6 @@
 	<updateHandler class="solr.DirectUpdateHandler2">
 		<updateLog>
 			<str name="dir">${solr.ulog.dir:}</str>
-			<int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}</int>
 		</updateLog>
 
 		<autoCommit>

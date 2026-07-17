@@ -1,7 +1,7 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/responsive/template" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 
@@ -31,6 +31,7 @@
 			ACC.accessibilityStoresLoaded = '<spring:theme code="aria.pickupinstore.storesloaded" htmlEscape="false" javaScriptEscape="true" />';
 			ACC.config.googleApiKey='${ycommerce:encodeJavaScript(googleApiKey)}';
 			ACC.config.googleApiVersion='${ycommerce:encodeJavaScript(googleApiVersion)}';
+			ACC.config.googleMapId='${ycommerce:encodeJavaScript(googleMapId)}';
 
 			<c:if test="${request.secure}">
 				<c:url var="autocompleteUrl" value="/search/autocompleteSecure" />
@@ -57,4 +58,3 @@
 	
 	<%-- generated variables from commonVariables.properties --%>
 	<script src="${fn:escapeXml(sharedResourcePath)}/js/generatedVariables.js"></script>
-	

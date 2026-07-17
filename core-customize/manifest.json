@@ -1,9 +1,20 @@
 {
-    "commerceSuiteVersion": "2211.39",
+    "commerceSuiteVersion": "2211-jdk21.10",
     "enableImageProcessingService": true,
     "extensions": [
         "cloudmediaconversion",
         "mediaconversionbackoffice"
+    ],
+    "storefrontAddons": [
+        {
+            "addons": [
+                "ordermanagementaddon"
+            ],
+            "storefronts": [
+                "yacceleratorstorefront"
+            ],
+            "template": "yacceleratorstorefront"
+        }
     ],
     "useConfig": {
         "properties": [
@@ -51,11 +62,11 @@
         },
         {
             "key": "endpoint.hac.platform.init.disabled",
-            "value": "false"
+            "value": "true"
         },
         {
             "key": "endpoint.hac.platform.update.disabled",
-            "value": "false"
+            "value": "true"
         },
         {
             "key": "googleApiKey",
@@ -72,6 +83,18 @@
         {
             "key": "backoffice.solr.search.index.autoinit",
             "value": "true"
+        },
+        {
+            "key": "orbeonweb.orbeon.persistence.uri",
+            "value": "http://localhost:8081/xyformsweb/fr/service/hybris"
+        },
+        {
+            "key": "xyformsservices.orbeon.url.address",
+            "value": "http://localhost:8081/web-orbeon"
+        },
+        {
+            "key": "xyformsservices.webroot.override",
+            "value": "false"
         },
         {
             "key": "mail.smtp.server",
@@ -163,8 +186,8 @@
                     "value": ""
                 },
                 {
-                    "key": "xss.filter.header.X-Frame-Options",
-                    "value": ""
+                    "key": "smarteditaddon.dynamicattribute.enabled",
+                    "value": "true"
                 },
                 {
                     "key": "smartedit.sso.enabled",
@@ -172,6 +195,10 @@
                 },
                 {
                     "key": "xyformsservices.webroot.override",
+                    "value": "false"
+                },
+                {
+                    "key": "cookies.SameSite.enabled",
                     "value": "false"
                 }
             ],
@@ -237,12 +264,15 @@
                     "contextPath": "/permissionswebservices"
                 },
                 {
-                    "name": "odata2webservices",
-					"contextPath": "/odata2webservices"
+                    "name": "odata2webservices"
                 },
                 {
                     "name": "orbeonweb",
                     "contextPath": "/web-orbeon"
+                },
+                {
+                    "name": "xyformsweb",
+                    "contextPath": "/xyformsweb"
                 },
                 {
                     "name": "adminapi",
@@ -257,7 +287,7 @@
                     "contextPath": "/embeddedserver"
                 },
                 {
-                    "name": "oauth2",
+                    "name": "authorizationserver",
                     "contextPath": "/authorizationserver"
                 },
                 {
@@ -267,6 +297,14 @@
                 {
                     "name": "merchandisingcmswebservices",
                     "contextPath": "/merchandisingcmswebservices"
+                },
+                {
+                    "name": "resourceserver",
+                    "contextPath": "/resourceserver"
+                },
+                {
+                    "name": "datahubadapter",
+                    "contextPath": "/datahubadapter"
                 }
             ]
         },
@@ -318,6 +356,14 @@
                 {
                     "name": "hac",
                     "contextPath": "/hac"
+                },
+                {
+                    "name": "orbeonweb",
+                    "contextPath": "/web-orbeon"
+                },
+                {
+                    "name": "xyformsweb",
+                    "contextPath": "/xyformsweb"
                 }
             ]
         },
@@ -338,7 +384,7 @@
                 },
                 {
                     "key": "corsfilter.default.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.default.allowedMethod",
@@ -346,7 +392,7 @@
                 },
                 {
                     "key": "corsfilter.acceleratorservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.acceleratorservices.allowedHeaders",
@@ -362,7 +408,7 @@
                 },
                 {
                     "key": "corsfilter.modeltacceleratorservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.modeltacceleratorservices.allowedHeaders",
@@ -378,7 +424,7 @@
                 },
                 {
                     "key": "corsfilter.assistedservicewebservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.assistedservicewebservices.allowedHeaders",
@@ -394,11 +440,11 @@
                 },
                 {
                     "key": "corsfilter.commercewebservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.commercewebservices.allowedHeaders",
-                    "value": "origin content-type accept authorization cache-control x-anonymous-consents x-profile-tag-debug x-consent-reference if-none-match occ-personalization-id occ-personalization-time"
+                    "value": "origin content-type accept authorization cache-control x-anonymous-consents x-profile-tag-debug x-consent-reference if-none-match occ-personalization-id occ-personalization-time sap-commerce-cloud-user-id sap-commerce-cloud-captcha-token"
                 },
                 {
                     "key": "corsfilter.commercewebservices.allowedMethods",
@@ -410,7 +456,7 @@
                 },
                 {
                     "key": "corsfilter.permissionswebservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "corsfilter.permissionswebservices.allowedHeaders",
@@ -422,7 +468,7 @@
                 },
                 {
                     "key": "corsfilter.personalizationwebservices.allowedOrigins",
-                    "value": "https://myjsapp.cr00bkvahx-accentur12-d1-public.model-t.cc.commerce.ondemand.com"
+                    "value": "*"
                 },
                 {
                     "key": "mockup.payment.label.billTo.region",
@@ -431,31 +477,7 @@
                 {
                     "key": "mockup.payment.label.billTo.phoneNumber",
                     "value": "billTo_phoneNumber"
-                },
-				{
-					"key": "commercewebservices.api.restrictions.disabled.endpoints",
-					"value": " "
-				},
-				{
-					"key": "corsfilter.commercewebservices.allowedOriginPatterns",
-					"value": "*"
-				},
-				{
-					"key": "corsfilter.commercewebservices.allowedMethods",
-					"value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
-				},
-				{
-					"key": "corsfilter.commercewebservices.allowedHeaders",
-					"value": "origin content-type accept authorization cache-control if-none-match x-anonymous-consents x-profile-tag-debug x-consent-reference occ-personalization-id occ-personalization-time"
-				},
-				{
-					"key": "corsfilter.commercewebservices.exposedHeaders",
-					"value": "x-anonymous-consents occ-personalization-id occ-personalization-time"
-				},
-				{
-					"key": "corsfilter.commercewebservices.allowCredentials",
-					"value": "true"
-				}
+                }
             ],
             "webapps": [
                 {
@@ -475,7 +497,7 @@
                     "contextPath": "/occ"
                 },
                 {
-                    "name": "oauth2",
+                    "name": "authorizationserver",
                     "contextPath": "/authorizationserver"
                 },
                 {
@@ -505,6 +527,10 @@
                 {
                     "name": "b2bordermanagementwebservices",
                     "contextPath": "/b2bordermanagementwebservices"
+                },
+                {
+                    "name": "resourceserver",
+                    "contextPath": "/resourceserver"
                 }
             ]
         },
@@ -527,14 +553,5 @@
                 }
             ]
         }
-    ],
-    "tests": {
-        "annotations": [
-            "UnitTests",
-            "IntegrationTests"
-        ],
-        "packages": [
-            "com.acme.*"
-        ]
-    }
+    ]
 }

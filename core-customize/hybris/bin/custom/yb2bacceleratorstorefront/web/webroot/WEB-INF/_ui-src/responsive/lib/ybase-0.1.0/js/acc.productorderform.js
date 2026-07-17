@@ -336,7 +336,8 @@ ACC.productorderform = {
                 traditional: true,
                 dataType: 'json',
                 success: function (data) {
-                    ACC.productorderform.updateFuture($gridContainer, $skus, data, skusId, showFutureStockLink , hideFutureStockInfo);
+                    var sanitizedData = ACC.sanitizer.sanitizeJson(data);
+                    ACC.productorderform.updateFuture($gridContainer, $skus, sanitizedData, skusId, showFutureStockLink , hideFutureStockInfo);
                 },
                 error: function (xht, textStatus, ex) {
                     console.log(`Failed to get delivery modes. Error details [${xht}, ${textStatus}, ${ex}]`);

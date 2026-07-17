@@ -2,6 +2,7 @@
 
 <solr>
 	<str name="coreRootDirectory">${solr.data.home:./}</str>
+	<str name="modules">${solr.modules:analysis-extras,hybris}</str>
 
 	<solrcloud>
 		<str name="host">${host:}</str>

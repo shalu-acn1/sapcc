@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+ * Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.platform.yb2bacceleratorstorefront.controllers.pages;
 
@@ -59,6 +59,9 @@ import de.hybris.platform.commerceservices.search.pagedata.PaginationData;
 import de.hybris.platform.commerceservices.search.pagedata.SearchPageData;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.i18n.I18NService;
+import de.hybris.platform.servicelayer.user.PasswordPolicyViolation;
+import de.hybris.platform.servicelayer.user.exceptions.PasswordPolicyViolationException;
+import de.hybris.platform.servicelayer.user.impl.DefaultPasswordPolicyViolation;
 import de.hybris.platform.yb2bacceleratorstorefront.controllers.ControllerConstants;
 
 import java.util.ArrayList;
@@ -66,7 +69,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -199,7 +202,7 @@ public class AccountPageControllerTest
 	public void prepare() throws CMSItemNotFoundException
 	{
 
-		final Locale locale = new Locale("en");
+		final Locale locale = Locale.of("en");
 		final List breadcrumbsList = new ArrayList();
 		breadcrumbsList.add(breadcrumb);
 
@@ -603,6 +606,22 @@ public class AccountPageControllerTest
 
 		verify(bindingResult).rejectValue("currentPassword", "profile.currentPassword.invalid", new Object[] {},
 				"profile.currentPassword.invalid");
+		assertEquals(REDIRECT_TO_PASSWORD_UPDATE_PAGE, passwordPage);
+	}
+
+	@Test
+	public void shouldNotUpdatePasswordPwdPolicyViolation() throws CMSItemNotFoundException
+	{
+		BDDMockito.given(passwordForm.getCheckNewPassword()).willReturn(TEST_CODE);
+		BDDMockito.given(passwordForm.getNewPassword()).willReturn(TEST_CODE);
+		final List<PasswordPolicyViolation> violations = new ArrayList<>();
+		violations.add(new DefaultPasswordPolicyViolation("error", "errorMessage"));
+		Mockito.doThrow(new PasswordPolicyViolationException(violations)).when(customerFacade).changePassword(nullable(String.class), nullable(String.class));
+
+		final String passwordPage = accountController.updatePassword(passwordForm, bindingResult, page, redirectModel);
+
+		verify(bindingResult).rejectValue("newPassword", "errorMessage", new Object[] {},
+				"errorMessage");
 		assertEquals(REDIRECT_TO_PASSWORD_UPDATE_PAGE, passwordPage);
 	}
 

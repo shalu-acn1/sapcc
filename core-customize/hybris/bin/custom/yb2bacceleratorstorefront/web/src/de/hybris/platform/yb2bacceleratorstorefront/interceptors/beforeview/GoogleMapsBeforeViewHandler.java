@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+ * Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.platform.yb2bacceleratorstorefront.interceptors.beforeview;
 
@@ -7,11 +7,11 @@ import de.hybris.platform.acceleratorservices.config.HostConfigService;
 import de.hybris.platform.acceleratorstorefrontcommons.interceptors.BeforeViewHandler;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -24,6 +24,7 @@ public class GoogleMapsBeforeViewHandler implements BeforeViewHandler
 
 	private static final String GOOGLE_API_KEY_ID = "googleApiKey";
 	private static final String GOOGLE_API_VERSION = "googleApiVersion";
+	private static final String GOOGLE_MAP_ID = "googleMapId";
 
 	@Resource(name = "hostConfigService")
 	private HostConfigService hostConfigService;
@@ -40,6 +41,12 @@ public class GoogleMapsBeforeViewHandler implements BeforeViewHandler
 		if (StringUtils.isNotEmpty(googleApiKey))
 		{
 			modelAndView.addObject("googleApiKey", googleApiKey);
+		}
+
+		final String googleMapId = hostConfigService.getProperty(GOOGLE_MAP_ID, request.getServerName());
+		if (StringUtils.isNotEmpty(googleMapId))
+		{
+			modelAndView.addObject(GOOGLE_MAP_ID, googleMapId);
 		}
 	}
 

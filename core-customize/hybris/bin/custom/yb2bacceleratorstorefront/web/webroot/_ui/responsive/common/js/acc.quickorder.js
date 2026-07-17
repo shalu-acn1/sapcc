@@ -62,7 +62,8 @@ if ($("#quickOrder").length > 0) {
                 data: ACC.quickorder.getJSONDataForAddToCart(),
                 async: false,
                 success: function (response) {
-                    ACC.quickorder.handleAddToCartSuccess(response);
+                    var sanitizedResponse = ACC.sanitizer.sanitizeJson(response);
+                    ACC.quickorder.handleAddToCartSuccess(sanitizedResponse);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     // log the error to the console
@@ -265,7 +266,7 @@ if ($("#quickOrder").length > 0) {
                 else {
                     $(event.target).removeClass(ACC.quickorder.$classHasError);
                     ACC.quickorder.findElement(parentLi, ACC.quickorder.$skuValidationContainer).text('');
-                    $.tmpl(ACC.quickorder.$templateAlias, result.productData).insertAfter(ACC.quickorder.findElement(parentLi, '.js-sku-container'));
+                    $.tmpl(ACC.quickorder.$templateAlias, ACC.sanitizer.sanitizeJson(result).productData).insertAfter(ACC.quickorder.findElement(parentLi, '.js-sku-container'));
                     var qtyInputField = ACC.quickorder.findElement(parentLi, ACC.quickorder.$qtyInputField);
                     qtyInputField.focusout(ACC.quickorder.handleFocusOutOnQtyInput).keydown(ACC.quickorder.handleFocusOutOnQtyInput);
                     var stockLevelStatus = result.productData.stock.stockLevelStatus.code;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved.
+ * Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.platform.yb2bacceleratorstorefront.controllers.pages;
 
@@ -34,7 +34,6 @@ import de.hybris.platform.commerceservices.util.ResponsiveUtils;
 import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.user.exceptions.PasswordPolicyViolationException;
-import de.hybris.platform.util.Config;
 import de.hybris.platform.util.Sanitizer;
 import de.hybris.platform.yb2bacceleratorstorefront.controllers.ControllerConstants;
 
@@ -46,13 +45,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +66,6 @@ import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static de.hybris.platform.commercefacades.constants.CommerceFacadesConstants.CONSENT_GIVEN;
-
 
 
 /**
@@ -88,7 +86,6 @@ public class CheckoutController extends AbstractCheckoutController
 	private static final String CHECKOUT_ORDER_CONFIRMATION_CMS_PAGE_LABEL = "orderConfirmation";
 	private static final String CONTINUE_URL_KEY = "continueUrl";
 	private static final String CONSENT_FORM_GLOBAL_ERROR = "consent.form.global.error";
-	private static final String REGISTRATION_CONFIRM_MESSAGE = "registration.confirmation.message.title";
 	private static final String REGISTRATION_CONFIRM_LOGIN_MESSAGE = "registration.confirmation.login.message.title";
 
 	private static final String LOGIN_URL = REDIRECT_PREFIX + "/login";
@@ -166,7 +163,6 @@ public class CheckoutController extends AbstractCheckoutController
 			final RedirectAttributes redirectModel) throws CMSItemNotFoundException, UnsupportedEncodingException {
 
 		final CustomerData anonymousCustomer = getCustomerFacade().getCurrentCustomer();
-		final boolean isSecureCustomerRegistrationEnabled = isSecureCustomerRegistrationEnabled();
 
 		if (bindingResult.hasErrors())
 		{
@@ -178,19 +174,12 @@ public class CheckoutController extends AbstractCheckoutController
 		{
 			getCustomerFacade().changeGuestToCustomer(form.getPwd(), form.getOrderCode());
 
-			if (isSecureCustomerRegistrationEnabled)
-			{
-				getUserFacade().setCurrentUser(getCustomerFacade().getCurrentCustomer().getUid());
-			}
-			else
-			{
-				getAutoLoginStrategy().login(getCustomerFacade().getCurrentCustomer().getUid(), form.getPwd(), request, response);
-			}
+			getUserFacade().setCurrentUser(getCustomerFacade().getCurrentCustomer().getUid());
 			getSessionService().removeAttribute(WebConstants.ANONYMOUS_CHECKOUT);
 		}
 		catch (final DuplicateUidException e)
 		{
-			return handleDuplicateUidException(form, model, redirectModel, isSecureCustomerRegistrationEnabled);
+			return handleDuplicateUidException(form, model, redirectModel);
 		}
 		catch (final PasswordPolicyViolationException e)
 		{
@@ -238,7 +227,7 @@ public class CheckoutController extends AbstractCheckoutController
 				LOG.error("Error occurred while creating Anonymous cookie consents", e);
 			}
 		}
-		return handleRegistration(isSecureCustomerRegistrationEnabled, anonymousCustomer, redirectModel);
+		return handleRegistration(anonymousCustomer, redirectModel);
 	}
 
 	protected String processOrderCode(final String orderCode, final Model model, final HttpServletRequest request,
@@ -339,51 +328,24 @@ public class CheckoutController extends AbstractCheckoutController
 		return autoLoginStrategy;
 	}
 
-	private boolean isSecureCustomerRegistrationEnabled()
+	private String handleRegistration(final CustomerData anonymousCustomer, final RedirectAttributes redirectModel)
 	{
-		return Config.getBoolean("toggle.secure.customer.registration.enabled", false);
-	}
-
-	private String handleRegistration(final boolean isSecureCustomerRegistrationEnabled, final CustomerData anonymousCustomer,
-			final RedirectAttributes redirectModel)
-	{
-		if (isSecureCustomerRegistrationEnabled)
+		if (anonymousCustomer != null)
 		{
-			if (anonymousCustomer != null)
-			{
-				getUserFacade().setCurrentUser(anonymousCustomer.getUid());
-			}
-			GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.CONF_MESSAGES_HOLDER, REGISTRATION_CONFIRM_LOGIN_MESSAGE);
-			return LOGIN_URL;
+			getUserFacade().setCurrentUser(anonymousCustomer.getUid());
+		}
+		GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.CONF_MESSAGES_HOLDER, REGISTRATION_CONFIRM_LOGIN_MESSAGE);
+		return LOGIN_URL;
 
-		}
-		else
-		{
-			GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.CONF_MESSAGES_HOLDER, REGISTRATION_CONFIRM_MESSAGE);
-			return REDIRECT_PREFIX + "/";
-		}
 	}
 
 	private String handleDuplicateUidException(final GuestRegisterForm form,
-			final Model model, final RedirectAttributes redirectModel, final boolean isSecureCustomerRegistrationEnabled)
-			throws UnsupportedEncodingException
+			final Model model, final RedirectAttributes redirectModel)
 	{
-		if (isSecureCustomerRegistrationEnabled)
-		{
 			GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.CONF_MESSAGES_HOLDER,
 					REGISTRATION_CONFIRM_LOGIN_MESSAGE);
 			LOG.debug("guest registration failed.");
 			return LOGIN_URL;
-		}
-		else
-		{
-			form.setTermsCheck(false);
-			model.addAttribute(new GuestRegisterForm());
-			GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.ERROR_MESSAGES_HOLDER,
-					"guest.checkout.existingaccount.register.error", new Object[]
-							{ form.getUid() });
-			return REDIRECT_URL_ORDER_CONFIRMATION + URLEncoder.encode(form.getOrderCode(), "UTF-8");
-		}
 	}
 
 	private String handlePasswordPolicyViolationException(final Model model, final GuestRegisterForm form,

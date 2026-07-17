@@ -18740,13 +18740,6 @@ select[multiple].input-sm {
   padding-right: 0;
   clear: both;
 }
-.js-recaptcha-captchaaddon {
-  margin: 20px 0;
-}
-#g-recaptcha_incorrect {
-  color: red;
-  display: none;
-}
 .carousel-bundles__component .carousel__component--headline {
   text-align: left;
 }

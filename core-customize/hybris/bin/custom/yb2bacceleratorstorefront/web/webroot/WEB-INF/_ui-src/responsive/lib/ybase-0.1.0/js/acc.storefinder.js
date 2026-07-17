@@ -203,6 +203,7 @@ ACC.storefinder = {
 	loadGoogleMap: function(){
 
 		var storeInformation = ACC.storefinder.storeId;
+		var mapId = ACC.config.googleMapId;
 
 		if($(ACC.storefinder.js_store_finder_map).length > 0)
 		{			
@@ -215,16 +216,16 @@ ACC.storefinder = {
 				panControl: true,
 				streetViewControl: false,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
-				center: centerPoint
+				center: centerPoint,
+				mapId: mapId
 			}
 			
 			var map = new google.maps.Map(document.getElementById("store-finder-map"), mapOptions);
 			
-			var marker = new google.maps.Marker({
+			var marker = new google.maps.marker.AdvancedMarkerElement({
 				position: new google.maps.LatLng(storeInformation["latitude"], storeInformation["longitude"]),
 				map: map,
-				title: storeInformation["name"],
-				icon: "https://maps.google.com/mapfiles/marker" + 'A' + ".png"
+				title: storeInformation["name"]
 			});
 			var infowindow = new google.maps.InfoWindow({
                 content: ACC.common.encodeHtml(storeInformation["name"]),

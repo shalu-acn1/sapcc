@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved.
+ * Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved.
  */
 package de.hybris.platform.yb2bacceleratorstorefront.controllers.pages;
 
@@ -51,6 +51,7 @@ import de.hybris.platform.commerceservices.util.ResponsiveUtils;
 import de.hybris.platform.servicelayer.exceptions.AmbiguousIdentifierException;
 import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+import de.hybris.platform.servicelayer.user.exceptions.PasswordPolicyViolationException;
 import de.hybris.platform.util.Config;
 import de.hybris.platform.util.Sanitizer;
 import de.hybris.platform.yb2bacceleratorstorefront.controllers.ControllerConstants;
@@ -62,12 +63,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -80,11 +81,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 
 /**
@@ -102,6 +102,7 @@ public class AccountPageController extends AbstractSearchPageController
 	private static final String TITLE_DATA_ATTR = "titleData";
 	private static final String FORM_GLOBAL_ERROR = "form.global.error";
 	private static final String PROFILE_CURRENT_PASSWORD_INVALID = "profile.currentPassword.invalid";
+	private static final String PROFILE_NEW_PASSWORD_VIOLATE_POLICY = "profile.newPassword.violate.policy";
 	private static final String TEXT_ACCOUNT_PROFILE = "text.account.profile";
 	private static final String ADDRESS_DATA_ATTR = "addressData";
 	private static final String ADDRESS_FORM_ATTR = "addressForm";
@@ -584,6 +585,19 @@ public class AccountPageController extends AbstractSearchPageController
 				{
 					bindingResult.rejectValue("currentPassword", PROFILE_CURRENT_PASSWORD_INVALID, new Object[] {},
 							PROFILE_CURRENT_PASSWORD_INVALID);
+				}
+				catch (final PasswordPolicyViolationException e)
+				{
+					if (CollectionUtils.isNotEmpty(e.getPolicyViolations()))
+					{
+						bindingResult.rejectValue("newPassword", e.getPolicyViolations().get(0).getLocalizedMessage(), new Object[] {},
+								e.getPolicyViolations().get(0).getLocalizedMessage());
+					}
+					else
+					{
+						bindingResult.rejectValue("newPassword", PROFILE_NEW_PASSWORD_VIOLATE_POLICY, new Object[] {},
+								PROFILE_NEW_PASSWORD_VIOLATE_POLICY);
+					}
 				}
 			}
 			else

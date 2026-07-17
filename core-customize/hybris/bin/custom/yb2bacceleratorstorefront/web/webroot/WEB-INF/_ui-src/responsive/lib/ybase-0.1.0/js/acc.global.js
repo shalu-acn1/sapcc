@@ -124,7 +124,7 @@ ACC.global = {
     // usage: ACC.global.addGoogleMapsApi("callback function"); // callback function name like "ACC.global.myfunction"
     addGoogleMapsApi: function (callback) {
         if (callback != undefined && $(".js-googleMapsApi").length == 0) {
-        	var googleApiSrc = "//maps.googleapis.com/maps/api/js?key=" + ACC.common.encodeHtml(ACC.config.googleApiKey) + '&sensor=false&callback=' + ACC.common.encodeHtml(callback);
+        	var googleApiSrc = "//maps.googleapis.com/maps/api/js?key=" + ACC.common.encodeHtml(ACC.config.googleApiKey) + '&libraries=marker&loading=async&callback=' + ACC.common.encodeHtml(callback);
     		$('head').append($("<script>").addClass("js-googleMapsApi")
     								.attr("type", "text/javascript")
     								.attr("src", googleApiSrc));
