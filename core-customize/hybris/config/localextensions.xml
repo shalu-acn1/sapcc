@@ -302,5 +302,11 @@
     <extension name='xyformsservices' />
     <extension name='xyformsstorefrontcommons' />
     <extension name='xyformsweb' />
+	
+	    <extension name='opfservices'/>
+    <extension name='opffacades'/>
+	<extension name='cxaibackoffice'/>
+	<extension name='cxaiocc'/>
+	<extension name='acceleratorwebservicesaddon'/>
   </extensions>
 </hybrisconfig>
