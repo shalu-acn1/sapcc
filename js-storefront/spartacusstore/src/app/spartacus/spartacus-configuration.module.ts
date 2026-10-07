@@ -27,7 +27,11 @@ import { defaultCmsContentProviders, layoutConfig, mediaConfig } from "@spartacu
     },
   }), provideConfig(<FeaturesConfig>{
     features: {
-      level: '2211.46.3'
+      level: '2211.46.3',
+      authorizationCodeFlowByDefault: true,
+    incrementProcessesCountForMergeCart: true,
+    dispatchLoginActionOnlyWhenTokenReceived: true,
+    cdsLoginEventsToken: true
     }
   })]
 })
