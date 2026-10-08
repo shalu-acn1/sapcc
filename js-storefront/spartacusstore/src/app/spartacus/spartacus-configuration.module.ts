@@ -29,6 +29,7 @@ import { defaultCmsContentProviders, layoutConfig, mediaConfig } from "@spartacu
     features: {
       level: '2211.46.3',
       authorizationCodeFlowByDefault: true,
+      asyncAuthConfigInitializer: true,
     incrementProcessesCountForMergeCart: true,
     dispatchLoginActionOnlyWhenTokenReceived: true,
     cdsLoginEventsToken: true
